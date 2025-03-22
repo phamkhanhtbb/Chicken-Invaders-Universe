@@ -446,15 +446,18 @@ void game_management::handle_game(){
     SDL_RenderClear(gRenderer);
 
     // handle background
-    scrolling+=SCREEN_SPEED;
-    if(scrolling < 0){
-        background.Render(gRenderer);
-        background.SetRect(0,scrolling);
+  scrolling += SCREEN_SPEED; // Tăng vị trí cuộn
+
+    // Nếu đã cuộn hết chiều cao của ảnh, reset lại
+    if(scrolling >= SCREEN_HEIGHT) {
+        scrolling = 0;
     }
-    else{
-        background.Render(gRenderer);
-        background.SetRect(0,0);
-    }
+
+    // Vẽ ảnh ở vị trí hiện tại và vị trí tiếp theo để tạo hiệu ứng liền mạch
+    background.SetRect(0, scrolling - SCREEN_HEIGHT);
+    background.Render(gRenderer);
+    background.SetRect(0, scrolling);
+    background.Render(gRenderer);
 
     // handle main_object
     spaceship.Move();

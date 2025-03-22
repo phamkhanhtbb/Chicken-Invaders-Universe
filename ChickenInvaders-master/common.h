@@ -8,10 +8,10 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
-const int BACKGROUND_WIDTH = 1920;
-const int BACKGROUND_HEIGHT = 3840;
-const int SCREEN_WIDTH = 1728;
-const int SCREEN_HEIGHT = 1080;
+const int BACKGROUND_WIDTH = 1200;
+const int BACKGROUND_HEIGHT = 760;
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 760;
 const float SCREEN_SPEED = 0.4;
 
 const int COLOR_KEY_R = 170;
@@ -37,5 +37,10 @@ struct StatusChicken{
     int turn_up;
     int turn_down;
 };
+
+
+
+
+
 
 #endif
