@@ -6,8 +6,8 @@
 #include "base.h"
 #include "bullet.h"
 
-#define WIDTH_MAIN 70
-#define HEIGHT_MAIN 57
+#define WIDTH_MAIN 110
+#define HEIGHT_MAIN 97
 #define MAIN_SPEED 8
 #define MAIN_HEART 3
 

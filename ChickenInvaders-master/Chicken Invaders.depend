@@ -227,7 +227,7 @@
 1641613260 source:c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\explosion.cpp
 	"Explosion.h"
 
-1742666544 source:c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\game_management.cpp
+1742666728 source:c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\game_management.cpp
 	"game_management.h"
 
 1641613260 c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\game_management.h
@@ -240,7 +240,7 @@
 	"Text.h"
 	"Boss.h"
 
-1641613260 c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\space_ship.h
+1742667313 c:\users\ideapad 5 pro\onedrive - vnu.edu.vn\desktop\chickeninvaders-master\chickeninvaders-master\space_ship.h
 	<vector>
 	"common.h"
 	"base.h"
