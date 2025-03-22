@@ -155,13 +155,13 @@ bool game_management::check_mouse_vs_item(const int& x,const int& y,const SDL_Re
 }
 void game_management::menu(const std::string& item) {
     base menu;
-    // Remove the menu2 loading since we don't need it anymore
+
     if(!menu.loadImg("image//menu.png", gRenderer)) {
         isRunning = false;
         return;
     }
 
-    // Reduce to just 2 items (Play and Quit)
+
     const int number_of_item = 2;
     SDL_Rect pos_arr[number_of_item];
     Text text_menu[number_of_item];
@@ -188,10 +188,10 @@ void game_management::menu(const std::string& item) {
     bool quit = true;
 
     while(quit) {
-        // Render the main menu - no need for menu_number checks anymore
+
         menu.Render(gRenderer);
 
-        // Display both menu items
+
         for(int i = 0; i < number_of_item; i++) {
             text_menu[i].loadText_showText(g_font_menu, gRenderer);
         }
@@ -435,14 +435,14 @@ void game_management::handle_game(){
     SDL_RenderClear(gRenderer);
 
     // handle background
-  scrolling += SCREEN_SPEED; // Tăng vị trí cuộn
+  scrolling += SCREEN_SPEED;
 
-    // Nếu đã cuộn hết chiều cao của ảnh, reset lại
+
     if(scrolling >= SCREEN_HEIGHT) {
         scrolling = 0;
     }
 
-    // Vẽ ảnh ở vị trí hiện tại và vị trí tiếp theo để tạo hiệu ứng liền mạch
+
     background.SetRect(0, scrolling - SCREEN_HEIGHT);
     background.Render(gRenderer);
     background.SetRect(0, scrolling);
