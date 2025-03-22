@@ -153,98 +153,87 @@ bool game_management::check_mouse_vs_item(const int& x,const int& y,const SDL_Re
     }
     return false;
 }
-void game_management::menu(const std::string& item){
+void game_management::menu(const std::string& item) {
     base menu;
-    base menu2;
-    if(!menu.loadImg("image//menu.png",gRenderer)){
-        isRunning = false;
-        return;
-    }
-    if(!menu2.loadImg("image//menu2.png",gRenderer)){
+    // Remove the menu2 loading since we don't need it anymore
+    if(!menu.loadImg("image//menu.png", gRenderer)) {
         isRunning = false;
         return;
     }
 
-    const int number_of_item = 4;
+    // Reduce to just 2 items (Play and Quit)
+    const int number_of_item = 2;
     SDL_Rect pos_arr[number_of_item];
     Text text_menu[number_of_item];
 
+    // Play option
     text_menu[0].SetText(item);
     text_menu[0].SetColor(Text::BLACK);
-    text_menu[0].loadText_showText(g_font_menu,gRenderer);
-    pos_arr[0].x = SCREEN_WIDTH/2-text_menu[0].GetRect().w/2;
-    pos_arr[0].y = SCREEN_HEIGHT-300;
-    text_menu[0].SetRect(pos_arr[0].x,pos_arr[0].y);
+    text_menu[0].loadText_showText(g_font_menu, gRenderer);
+    pos_arr[0].x = SCREEN_WIDTH/2 - text_menu[0].GetRect().w/2;
+    pos_arr[0].y = SCREEN_HEIGHT - 250;
+    text_menu[0].SetRect(pos_arr[0].x, pos_arr[0].y);
 
-    text_menu[1].SetText("Information");
+    // Quit option
+    text_menu[1].SetText("Quit !");
     text_menu[1].SetColor(Text::BLACK);
-    text_menu[1].loadText_showText(g_font_menu,gRenderer);
-    pos_arr[1].x = SCREEN_WIDTH/2-text_menu[1].GetRect().w/2;
-    pos_arr[1].y = SCREEN_HEIGHT-200;
-    text_menu[1].SetRect(pos_arr[1].x,pos_arr[1].y);
-
-    text_menu[2].SetText("Quit !");
-    text_menu[2].SetColor(Text::BLACK);
-    text_menu[2].loadText_showText(g_font_menu,gRenderer);
-    pos_arr[2].x = SCREEN_WIDTH/2-text_menu[2].GetRect().w/2;
-    pos_arr[2].y = SCREEN_HEIGHT-100;
-    text_menu[2].SetRect(pos_arr[2].x,pos_arr[2].y);
-
-    text_menu[3].SetText("Back !");
-    text_menu[3].SetColor(Text::BLACK);
-    text_menu[3].loadText_showText(g_font_menu,gRenderer);
-    pos_arr[3].x = 10;
-    pos_arr[3].y = 10;
-    text_menu[3].SetRect(pos_arr[3].x,pos_arr[3].y);
+    text_menu[1].loadText_showText(g_font_menu, gRenderer);
+    pos_arr[1].x = SCREEN_WIDTH/2 - text_menu[1].GetRect().w/2;
+    pos_arr[1].y = SCREEN_HEIGHT - 150;
+    text_menu[1].SetRect(pos_arr[1].x, pos_arr[1].y);
 
     int xm = 0;
     int ym = 0;
-    Mix_PlayMusic(g_music_start, -1 );
+    Mix_PlayMusic(g_music_start, -1);
     bool quit = true;
-    while(quit){
-        if(menu_number==0){
-            menu.Render(gRenderer);
-            for(int i=0;i<number_of_item-1;i++){
-                text_menu[i].loadText_showText(g_font_menu,gRenderer);
-            }
+
+    while(quit) {
+        // Render the main menu - no need for menu_number checks anymore
+        menu.Render(gRenderer);
+
+        // Display both menu items
+        for(int i = 0; i < number_of_item; i++) {
+            text_menu[i].loadText_showText(g_font_menu, gRenderer);
         }
-        else if(menu_number==1){
-            menu2.Render(gRenderer);
-            text_menu[3].loadText_showText(g_font_menu,gRenderer);
-        }
-        while(SDL_PollEvent(&gEvent)!=0){
-            spaceship.Control(gEvent,gRenderer,g_sound_bullet,bullet_level,g_sound_level_up);
-            if(gEvent.type == SDL_QUIT){
+
+        while(SDL_PollEvent(&gEvent) != 0) {
+            spaceship.Control(gEvent, gRenderer, g_sound_bullet, bullet_level, g_sound_level_up);
+
+            if(gEvent.type == SDL_QUIT) {
                 isRunning = false;
                 quit = false;
             }
-            else if(gEvent.type == SDL_MOUSEMOTION){
+            else if(gEvent.type == SDL_MOUSEMOTION) {
                 xm = gEvent.motion.x;
                 ym = gEvent.motion.y;
 
-                for(int i=0;i<number_of_item;i++){
-                    if(check_mouse_vs_item(xm,ym,text_menu[i].GetRect())){text_menu[i].SetColor(Text::WHITE);}
-                    else{text_menu[i].SetColor(Text::BLACK);}
+                // Update colors when hovering over menu items
+                for(int i = 0; i < number_of_item; i++) {
+                    if(check_mouse_vs_item(xm, ym, text_menu[i].GetRect())) {
+                        text_menu[i].SetColor(Text::WHITE);
+                    }
+                    else {
+                        text_menu[i].SetColor(Text::BLACK);
+                    }
                 }
             }
-            if(gEvent.type == SDL_MOUSEBUTTONDOWN){
+
+            if(gEvent.type == SDL_MOUSEBUTTONDOWN) {
                 xm = gEvent.button.x;
                 ym = gEvent.button.y;
 
-                for(int i=0;i<number_of_item;i++){
-                    if(menu_number==0){
-                        if(check_mouse_vs_item(xm,ym,text_menu[i].GetRect())){
-                            if(i==0){isRunning=true;quit= false;}
-                            else if(i==1){menu_number=1;}
-                            else if(i==2){isRunning=false;quit= false;}
-                            Mix_PlayChannel(-1,g_sound_level_up,0);
+                // Handle clicks on menu items
+                for(int i = 0; i < number_of_item; i++) {
+                    if(check_mouse_vs_item(xm, ym, text_menu[i].GetRect())) {
+                        if(i == 0) {  // Play option
+                            isRunning = true;
+                            quit = false;
                         }
-                    }
-                    else if(menu_number==1){
-                        if(check_mouse_vs_item(xm,ym,text_menu[3].GetRect())){
-                            menu_number=0;
-                            Mix_PlayChannel(-1,g_sound_level_up,0);
+                        else if(i == 1) {  // Quit option
+                            isRunning = false;
+                            quit = false;
                         }
+                        Mix_PlayChannel(-1, g_sound_level_up, 0);
                     }
                 }
             }
