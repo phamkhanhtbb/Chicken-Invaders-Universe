@@ -414,6 +414,17 @@ void game_management::handle_event() {
             }
         }
 
+        // ESC key pause functionality
+        if(gEvent.type == SDL_KEYDOWN) {
+            if(gEvent.key.keysym.sym == SDLK_ESCAPE) {
+                if (isPaused) {
+                    resume_game();
+                } else {
+                    pause_game();
+                }
+            }
+        }
+
         // Only allow spaceship control when not paused
         if(!isPaused) {
             spaceship.Control(
