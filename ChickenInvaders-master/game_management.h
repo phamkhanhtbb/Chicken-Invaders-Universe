@@ -67,18 +67,14 @@ private:
     int menu_number;
     std::vector<Chicken*> p_chicken_list;
 
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-     base pauseButton;           // Sprite for pause button
-    int pauseButtonState;       // 0: Play, 1: Pause
-    bool isPaused;              // Current pause state of the game
-    SDL_Rect pauseButtonRect;   // Collision detection rectangle
-
-    // Audio Management during Pause
-    Mix_Music* current_music;   // Currently playing music
-    std::vector<Mix_Chunk*> active_sounds; // Currently playing sound effects
-
-    // Pause Overlay
+    const int SCREEN_FPS = 60;
+    const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+    base pauseButton;
+    int pauseButtonState;
+    bool isPaused;
+    SDL_Rect pauseButtonRect;
+    Mix_Music* current_music;
+    std::vector<Mix_Chunk*> active_sounds;
     SDL_Texture* pause_overlay_texture;
 
 };

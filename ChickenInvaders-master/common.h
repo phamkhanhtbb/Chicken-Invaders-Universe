@@ -12,7 +12,7 @@ const int BACKGROUND_WIDTH = 1200;
 const int BACKGROUND_HEIGHT = 760;
 const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 760;
-const float SCREEN_SPEED = 0.6;
+const float SCREEN_SPEED = 1;
 
 const int COLOR_KEY_R = 170;
 const int COLOR_KEY_G = 170;

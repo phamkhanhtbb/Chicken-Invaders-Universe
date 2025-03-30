@@ -136,11 +136,6 @@ void game_management::init(std::string title){
     end_game.SetColor(Text::WHITE);
 
     isRunning = true;
-
-
-
-
-
   pauseButtonRect.x = SCREEN_WIDTH - 70;  // Top-right corner
     pauseButtonRect.y = 10;
     pauseButtonRect.w = 50;
@@ -162,10 +157,9 @@ void game_management::init(std::string title){
 
 
 void game_management::render_pause_overlay() {
-    // Chuyển render target sang texture
     SDL_SetRenderTarget(gRenderer, pause_overlay_texture);
 
-    // Làm trong suốt texture
+    //  transparent
     SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 128);
     SDL_RenderClear(gRenderer);
 
@@ -181,64 +175,41 @@ void game_management::render_pause_overlay() {
         (SCREEN_WIDTH - text_width) / 2,
         (SCREEN_HEIGHT - text_height) / 2
     );
-
-    // Render text lên texture
     pauseText.loadText_showText(g_font_menu, gRenderer);
-
-    // Chuyển lại render target mặc định
     SDL_SetRenderTarget(gRenderer, NULL);
 
-    // Render texture pause overlay ra màn hình
     SDL_RenderCopy(gRenderer, pause_overlay_texture, NULL, NULL);
 }
-
-
-
 
 void game_management::pause_game() {
     if (isPaused) return;
 
     isPaused = true;
-    pauseButtonState = 1;  // Switch to pause state
-
-    // Pause background music using standard SDL_mixer function
+    pauseButtonState = 1;
     Mix_PauseMusic();
-
-    // Pause all sound channels
     for (int i = 0; i < MIX_CHANNELS; ++i) {
         if (Mix_Playing(i)) {
             Mix_Pause(i);
         }
     }
-
-    // Create pause overlay
     render_pause_overlay();
-
-    // Play pause sound effect
     Mix_PlayChannel(-1, g_sound_level_up, 0);
 }
-
-
-
 
 void game_management::resume_game() {
     if (!isPaused) return;
 
     isPaused = false;
-    pauseButtonState = 0;  // Switch to play state
+    pauseButtonState = 0;
 
     // Resume background music if it was playing
     if (current_music) {
         Mix_ResumeMusic();
     }
-
-    // Resume all paused sound channels
     for (auto& sound : active_sounds) {
         Mix_Resume(Mix_PlayChannel(-1, sound, 0));
     }
     active_sounds.clear();
-
-    // Play resume sound effect
     Mix_PlayChannel(-1, g_sound_level_up, 0);
 }
 
