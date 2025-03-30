@@ -11,7 +11,7 @@ game_management::game_management(){
 
 
     isPaused = false;
-    pauseButtonState = 0;  // Start with play state
+    pauseButtonState = 0;
     current_music = nullptr;
     pause_overlay_texture = nullptr;
 }
@@ -645,7 +645,6 @@ void game_management::handle_game(){
            int text_width = 0, text_height = 0;
         TTF_SizeText(g_font_end_game, "Win Game !", &text_width, &text_height);
 
-        // Đặt chữ vào giữa màn hình
         end_game.SetRect((SCREEN_WIDTH - text_width) / 2, SCREEN_HEIGHT / 3);
 
         end_game.loadText_showText(g_font_end_game, gRenderer);
