@@ -609,11 +609,11 @@ void game_management::handle_game(){
 
         end_game.SetText("Game Over !");
 
-        // Lấy kích thước của chữ
+
         int text_width = 0, text_height = 0;
         TTF_SizeText(g_font_end_game, "Game Over !", &text_width, &text_height);
 
-        // Đặt vị trí giữa màn hình
+
         end_game.SetRect((SCREEN_WIDTH - text_width) / 2, SCREEN_HEIGHT / 3);
 
         end_game.loadText_showText(g_font_end_game, gRenderer);
